@@ -7,7 +7,6 @@ import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
 
-
 load_dotenv()
 
 
@@ -21,7 +20,7 @@ st.title("AskAtlas - Your Personal RAG")
 
 
 with st.sidebar:
-    st.header("📁 Upload Documents")
+    st.header("Upload Documents")
     
     uploaded_files = st.file_uploader(
         "Upload PDFs or text files",
