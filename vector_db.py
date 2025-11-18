@@ -28,12 +28,12 @@ for i, file in enumerate(files):
 
 print(f"Stored {len(files)} documents")
 
-# search the docs 
+
 
 query = "How neural networks work?"
 results = collection.query(
     query_texts=[query],
-    n_results=2  # Get top 2 matches
+    n_results=2  
 )
 
 print(f"Query is - {query}")

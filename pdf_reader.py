@@ -21,7 +21,6 @@ def read_pdf(file_path):
     return text
 
 def chunk_text(text, chunk_size=1000):
-    """Simple chunking"""
     words = text.split()
     chunks = []
     
@@ -33,16 +32,13 @@ def chunk_text(text, chunk_size=1000):
 
 def store_pdf_in_db(pdf_path):
     """Read PDF and store in ChromaDB"""
-    
-    # Read PDF
+   
     print(f" Reading {pdf_path}...")
     text = read_pdf(pdf_path)
-    
-    # Chunk it
+  
     chunks = chunk_text(text, chunk_size=200)
     print(f" Created {len(chunks)} chunks")
-    
-    # Store in ChromaDB
+
     client = chromadb.Client()
     collection = client.create_collection(name="pdf_docs")
     
@@ -76,7 +72,6 @@ def rag_query(question, collection, llm_client):
     3. Get answer
     """
 
-    # Step 1: Retrieve relevant documents
     results = collection.query(
         query_texts=[question],
         n_results=3
@@ -84,7 +79,6 @@ def rag_query(question, collection, llm_client):
 
     context = "\n\n".join(results['documents'][0])
 
-    # Step 2: Generate answer with context
     prompt = f"""
     Answer the question based ONLY on the following context.
     If the answer is not in the context, respond with:
@@ -98,7 +92,6 @@ def rag_query(question, collection, llm_client):
     Answer:
     """
 
-    # Using OpenAI
     response = llm_client.chat.completions.create(
         model="gpt-4o-mini", 
         messages=[
@@ -115,14 +108,12 @@ def rag_query(question, collection, llm_client):
     return answer, sources
 
 
-# Initialize clients
 chroma_client = chromadb.Client()
 
 load_dotenv()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Example usage:
 collection = chroma_client.get_collection("pdf_docs")
 
 answer, sources = rag_query(
