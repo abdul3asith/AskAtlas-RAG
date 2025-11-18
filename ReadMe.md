@@ -1,4 +1,4 @@
-# DocuMind - AI Document Q&A
+# AskAtlas - Your Personal RAG
 
 Upload documents, ask questions, get instant answers with citations.
 
